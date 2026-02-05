@@ -1,0 +1,90 @@
+{
+  "name": "pin_dou_demo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "豆拼 - 专业的拼豆图纸绘制与转换工具",
+  "author": "豆拼团队",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"pnpm run dev:client\" \"pnpm run electron:dev\"",
+    "dev:client": "vite",
+    "electron:dev": "wait-on tcp:5173 && cross-env ELECTRON_IS_DEV=1 electron .",
+    "build": "tsc && vite build && electron-builder",
+    "build:mac": "tsc && vite build && electron-builder --mac",
+    "build:win": "tsc && vite build && electron-builder --win",
+    "build:all": "tsc && vite build && electron-builder --mac --win",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.pindou.app",
+    "productName": "豆拼",
+    "copyright": "Copyright © 2024 豆拼",
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sqlite3/**/*"
+    ],
+    "mac": {
+      "icon": "public/logo.png"
+    },
+    "linux": {
+      "icon": "public/logo.png"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "server/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist-electron"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "public/logo.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "豆拼"
+    }
+  },
+  "dependencies": {
+    "bindings": "^1.5.0",
+    "file-uri-to-path": "^2.0.0",
+    "i18next": "^25.8.1",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "lucide-react": "^0.563.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^16.5.4",
+    "react-router-dom": "^6.30.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.24",
+    "concurrently": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.13.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "node-gyp": "^12.2.0",
+    "postcss": "^8.5.6",
+    "prebuild-install": "^7.1.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "wait-on": "^9.0.3"
+  }
+}
