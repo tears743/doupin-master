@@ -9,6 +9,7 @@ interface ProcessOptions {
   brightness?: number; // 亮度调整 (-100 to 100)
   contrast?: number; // 对比度调整 (-100 to 100)
   saturation?: number; // 饱和度调整 (-100 to 100)
+  colorMergeThreshold?: number; // 颜色合并阈值
 }
 
 export interface PixelData {
@@ -19,6 +20,18 @@ export interface PixelData {
 // 辅助函数：限制 RGB 值范围
 function clamp(value: number): number {
   return Math.max(0, Math.min(255, Math.round(value)));
+}
+
+// 辅助函数：计算 RGB 欧氏距离
+function getRgbDistance(
+  rgb1: [number, number, number],
+  rgb2: [number, number, number],
+): number {
+  return Math.sqrt(
+    Math.pow(rgb1[0] - rgb2[0], 2) +
+      Math.pow(rgb1[1] - rgb2[1], 2) +
+      Math.pow(rgb1[2] - rgb2[2], 2),
+  );
 }
 
 // 辅助函数：调整亮度、对比度、饱和度
@@ -83,6 +96,7 @@ export async function processImage(
     brightness = 0,
     contrast = 0,
     saturation = 0,
+    colorMergeThreshold = 0,
   } = options;
 
   // 1. 加载图片
@@ -121,6 +135,39 @@ export async function processImage(
     imageData.data.set(
       applyFilters(imageData.data, brightness, contrast, saturation),
     );
+  }
+
+  // 4.5 颜色合并
+  if (colorMergeThreshold > 0) {
+    const data = imageData.data;
+    const representativeColors: [number, number, number][] = [];
+
+    for (let i = 0; i < data.length; i += 4) {
+      // 忽略完全透明的像素
+      if (data[i + 3] === 0) continue;
+
+      const currentRgb: [number, number, number] = [
+        data[i],
+        data[i + 1],
+        data[i + 2],
+      ];
+
+      // 寻找是否已有相似颜色
+      let foundMatch = false;
+      for (const refColor of representativeColors) {
+        if (getRgbDistance(currentRgb, refColor) <= colorMergeThreshold) {
+          data[i] = refColor[0];
+          data[i + 1] = refColor[1];
+          data[i + 2] = refColor[2];
+          foundMatch = true;
+          break;
+        }
+      }
+
+      if (!foundMatch) {
+        representativeColors.push(currentRgb);
+      }
+    }
   }
 
   const data = imageData.data;

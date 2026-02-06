@@ -28,6 +28,7 @@
     "brightness": "亮度",
     "contrast": "对比度",
     "saturation": "饱和度",
+    "color_merge_threshold": "颜色合并阈值",
     "dithering": "开启抖动 (Dithering)",
     "dithering_strength": "抖动强度",
     "dithering_hint": "对于Logo/图形类图片，建议降低抖动或关闭；照片类建议开启。",

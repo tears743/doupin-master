@@ -28,6 +28,7 @@
     "brightness": "Brightness",
     "contrast": "Contrast",
     "saturation": "Saturation",
+    "color_merge_threshold": "Color Merge Threshold",
     "dithering": "Enable Dithering",
     "dithering_strength": "Dithering Strength",
     "dithering_hint": "For logos/graphics, lower dithering or disable; for photos, enable.",

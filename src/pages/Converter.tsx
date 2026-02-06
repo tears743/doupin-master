@@ -50,6 +50,7 @@ export function Converter() {
   const [brightness, setBrightness] = useState<number>(0);
   const [contrast, setContrast] = useState<number>(0);
   const [saturation, setSaturation] = useState<number>(0);
+  const [colorMergeThreshold, setColorMergeThreshold] = useState<number>(30);
 
   const [resultGrid, setResultGrid] = useState<PixelData[][] | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -255,6 +256,7 @@ export function Converter() {
           brightness,
           contrast,
           saturation,
+          colorMergeThreshold,
         });
         setResultGrid(grid);
 
@@ -1058,6 +1060,23 @@ export function Converter() {
                   max="100"
                   value={saturation}
                   onChange={(e) => setSaturation(Number(e.target.value))}
+                  className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  <span>{t("converter.color_merge_threshold")}</span>
+                  <span>{colorMergeThreshold}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  value={colorMergeThreshold}
+                  onChange={(e) =>
+                    setColorMergeThreshold(Number(e.target.value))
+                  }
                   className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>
