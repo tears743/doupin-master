@@ -11,6 +11,8 @@
     "dev": "concurrently \"pnpm run dev:client\" \"pnpm run electron:dev\"",
     "dev:client": "vite",
     "electron:dev": "wait-on tcp:5173 && cross-env ELECTRON_IS_DEV=1 electron . --no-sandbox",
+    "type-check": "tsc",
+    "build:client": "vite build",
     "build": "tsc && vite build && electron-builder",
     "build:mac": "tsc && vite build && electron-builder --mac",
     "build:win": "tsc && vite build && electron-builder --win",
