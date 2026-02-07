@@ -1,7 +1,10 @@
-import sqlite3 from "sqlite3";
+import { createRequire } from "module";
 import path from "path";
 import { fileURLToPath } from "url";
 import { app } from "electron";
+
+const require = createRequire(import.meta.url);
+const sqlite3 = require("sqlite3");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

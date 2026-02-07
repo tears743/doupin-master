@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "豆拼 - 专业的拼豆图纸绘制与转换工具",
+  "repository": "github:tears743/doupin-master",
   "author": "豆拼团队",
   "type": "module",
   "main": "electron/main.js",
@@ -15,11 +16,20 @@
     "build:win": "tsc && vite build && electron-builder --win",
     "build:all": "tsc && vite build && electron-builder --mac --win",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
     "appId": "com.pindou.app",
     "productName": "豆拼",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "tears743",
+        "repo": "doupin-master"
+      }
+    ],
+    "npmRebuild": true,
     "copyright": "Copyright © 2024 豆拼",
     "asar": true,
     "asarUnpack": [
@@ -53,16 +63,24 @@
     }
   },
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^2.0.3",
     "bindings": "^1.5.0",
+    "consola": "^3.4.2",
+    "detect-libc": "^2.1.2",
     "file-uri-to-path": "^2.0.0",
+    "https-proxy-agent": "^7.0.6",
     "i18next": "^25.8.1",
     "i18next-browser-languagedetector": "^8.2.0",
     "lucide-react": "^0.563.0",
+    "node-fetch": "^3.3.2",
+    "nopt": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^16.5.4",
     "react-router-dom": "^6.30.3",
-    "sqlite3": "^5.1.7"
+    "semver": "^7.7.4",
+    "sqlite3": "5.1.6",
+    "tar": "^7.5.7"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",

@@ -163,11 +163,17 @@ function createWindow() {
     height: 800,
     icon: icon,
     frame: false, // Frame-less window
+    show: false, // Don't show until ready
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
+  });
+
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+    mainWindow.focus();
   });
 
   mainWindow.setIcon(icon);
