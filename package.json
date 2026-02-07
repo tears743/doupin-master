@@ -31,7 +31,7 @@
         "repo": "doupin-master"
       }
     ],
-    "npmRebuild": true,
+    "npmRebuild": false,
     "copyright": "Copyright © 2024 豆拼",
     "asar": true,
     "asarUnpack": [
