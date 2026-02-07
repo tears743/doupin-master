@@ -29,6 +29,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Rebuild Native Dependencies
+        run: npx electron-builder install-app-deps
+
       - name: Build and Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
