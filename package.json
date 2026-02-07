@@ -24,7 +24,7 @@
   "build": {
     "appId": "com.pindou.app",
     "productName": "豆拼",
-    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "artifactName": "doupin-${version}-${arch}.${ext}",
     "publish": [
       {
         "provider": "github",
